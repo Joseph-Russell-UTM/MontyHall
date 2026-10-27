@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <random>
+#include <ctime>
 
 using namespace std;
 
@@ -20,10 +21,10 @@ void monty_hall(){
 
     cout << "Choose a door 1 - 3: ";
     cin >> player_door;
-    
+    srand(time(0));
     car_door = rand() % 3 + 1;
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 1; i <= 3; ++i) {
         if (i != player_door && i != car_door) {
             opened_door = i;
             cout << "Host opens door " << opened_door << " and reveals a goat." << endl;
@@ -59,6 +60,8 @@ void simulate(int num_iterations){
     float win_percentage;
     float loss_percentage;
 
+    srand(time(0)); // Seed the random number generator
+
     cout << "Will the simulation switch doors? (y/n): ";
     cin >> switch_choice;
 
@@ -66,8 +69,10 @@ void simulate(int num_iterations){
         iteration++;
         player_door = rand() % 3 + 1;
         car_door = rand() % 3 + 1;
+       // cout << "Car is behind door " << car_door << endl;
+       // cout << "Player chose door " << player_door << endl;
 
-        for (int i = 0; i < 3; ++i) {
+        for (int i = 1; i <= 3; ++i) {
             if (i != player_door && i != car_door) {
                 opened_door = i;
                 break;
@@ -77,12 +82,16 @@ void simulate(int num_iterations){
 
         if (switch_choice == 'y' || switch_choice == 'Y') {
             player_door = 6 - player_door - opened_door;
+           // cout << "Player switched to door " << player_door << endl;
             }
+
         
         if (player_door == car_door) {
             wins++;
+            // cout << "Player won the car!" << endl;
         } else {
             losses++;
+            // cout << "Player got a goat." << endl;
         }
     }
 
